@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.example.expandpopview.callback.OnOneListCallback;
 import com.example.expandpopview.callback.OnTwoListCallback;
-import com.example.expandpopview.listview.KeyValue;
+import com.example.expandpopview.entity.KeyValue;
 import com.example.expandpopview.view.ExpandPopView;
 
 import java.util.ArrayList;

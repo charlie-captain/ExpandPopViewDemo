@@ -20,7 +20,7 @@ import com.example.expandpopview.R;
 import com.example.expandpopview.callback.OnOneListCallback;
 import com.example.expandpopview.callback.OnPopViewListener;
 import com.example.expandpopview.callback.OnTwoListCallback;
-import com.example.expandpopview.listview.KeyValue;
+import com.example.expandpopview.entity.KeyValue;
 import com.example.expandpopview.listview.PopLinearLayout;
 import com.example.expandpopview.listview.PopOneListView;
 import com.example.expandpopview.listview.PopTwoListView;

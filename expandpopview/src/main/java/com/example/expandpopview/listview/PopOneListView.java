@@ -12,6 +12,7 @@ import com.example.expandpopview.callback.IPopListView;
 import com.example.expandpopview.callback.OnOneListCallback;
 import com.example.expandpopview.callback.OnPopItemClickListener;
 import com.example.expandpopview.callback.OnPopViewListener;
+import com.example.expandpopview.entity.KeyValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,6 @@ public class PopOneListView extends PopLinearLayout implements IPopListView {
     private PopViewAdapter mListAdapter;
     private OnOneListCallback mCallBack;
     private OnPopViewListener mOnPopViewListener;
-
-    private int mSelectedPosition;
 
 
     public PopOneListView(Context context) {

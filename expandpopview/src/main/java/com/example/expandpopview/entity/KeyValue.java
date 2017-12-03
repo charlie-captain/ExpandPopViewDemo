@@ -1,4 +1,4 @@
-package com.example.expandpopview.listview;
+package com.example.expandpopview.entity;
 
 /**
  * Created by thatnight on 2017.12.3.
