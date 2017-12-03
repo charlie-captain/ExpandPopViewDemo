@@ -27,9 +27,9 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
     private ListView mParentListView;
     private ListView mChildListView;
 
-    private List<String> mParentList;
-    private List<String> mChildList;
-    private List<List<String>> mParentChildren;
+    private List<KeyValue> mParentList;
+    private List<KeyValue> mChildList;
+    private List<List<KeyValue>> mParentChildren;
 
     private PopViewAdapter mParentAdapter;
     private PopViewAdapter mChildAdapter;
@@ -94,9 +94,9 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
         mChildAdapter.setSelectPosition(-1);
         mChildList.clear();
         mChildList.addAll(mParentChildren.get(pos));
-        mChildAdapter.setDataList(mChildList);
+        mChildAdapter.setKeyValueList(mChildList);
         if (mCallBack != null) {
-            mCallBack.returnParentKey(pos, mParentList.get(pos));
+            mCallBack.returnParentKeyValue(pos, mParentList.get(pos));
         }
     }
 
@@ -108,10 +108,10 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
         mParentAdapter.setSelectPosition(mParentPositionSelected);
         mParentPosition = mParentPositionSelected;
         if (mCallBack != null) {
-            mCallBack.returnChildKey(pos, mChildList.get(pos));
+            mCallBack.returnChildKeyValue(pos, mChildList.get(pos));
         }
         if (mOnPopViewListener != null) {
-            mOnPopViewListener.unexpandPopView(mChildList.get(pos));
+            mOnPopViewListener.unexpandPopView(mChildList.get(pos).getKey());
         }
     }
 
@@ -124,7 +124,7 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
             //set child list
             mChildList.clear();
             mChildList.addAll(mParentChildren.get(mParentPosition));
-            mChildAdapter.setDataList(mChildList);
+            mChildAdapter.setKeyValueList(mChildList);
             mChildAdapter.setSelectPosition(mChildPosition);
             mChildListView.setSelection(mChildPosition);
 
@@ -133,12 +133,12 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
     }
 
 
-    public void setData(List<String> parentList, List<List<String>> parentChild) {
+    public void setData(List<KeyValue> parentList, List<List<KeyValue>> parentChild) {
         mParentList = parentList;
         mChildList.addAll(parentChild.get(0));
         mParentChildren = parentChild;
-        mParentAdapter.setDataList(mParentList);
-        mChildAdapter.setDataList(mChildList);
+        mParentAdapter.setKeyValueList(mParentList);
+        mChildAdapter.setKeyValueList(mChildList);
     }
 
     public void setCallback(OnTwoListCallback callback) {

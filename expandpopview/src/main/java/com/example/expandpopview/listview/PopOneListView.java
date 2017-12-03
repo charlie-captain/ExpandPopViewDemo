@@ -24,7 +24,7 @@ public class PopOneListView extends PopLinearLayout implements IPopListView {
 
     private ListView mOneListView;
 
-    private List<String> mOneList;
+    private List<KeyValue> mOneList;
 
     private PopViewAdapter mListAdapter;
     private OnOneListCallback mCallBack;
@@ -58,10 +58,10 @@ public class PopOneListView extends PopLinearLayout implements IPopListView {
             public void onItemClick(PopViewAdapter adapter, int pos) {
                 mListAdapter.setSelectPosition(pos);
                 if (mCallBack != null) {
-                    mCallBack.returnKey(pos,mOneList.get(pos));
+                    mCallBack.returnKeyValue(pos, mOneList.get(pos));
                 }
                 if (mOnPopViewListener != null) {
-                    mOnPopViewListener.unexpandPopView(mOneList.get(pos));
+                    mOnPopViewListener.unexpandPopView(mOneList.get(pos).getKey());
                 }
             }
         });
@@ -70,7 +70,7 @@ public class PopOneListView extends PopLinearLayout implements IPopListView {
 
     @Override
     public void setDrawable(int popViewTextSize, int popViewTextColor, int popViewTextColorSelected) {
-        mListAdapter.setTextColor(popViewTextColor,popViewTextColorSelected);
+        mListAdapter.setTextColor(popViewTextColor, popViewTextColorSelected);
         if (popViewTextSize != -1) {
             mListAdapter.setTextSize(popViewTextSize);
         }
@@ -88,9 +88,9 @@ public class PopOneListView extends PopLinearLayout implements IPopListView {
         }
     }
 
-    public void setData(List<String> oneList) {
+    public void setData(List<KeyValue> oneList) {
         mOneList.addAll(oneList);
-        mListAdapter.setDataList(mOneList);
+        mListAdapter.setKeyValueList(mOneList);
     }
 
 

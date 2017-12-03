@@ -18,9 +18,9 @@ import java.util.List;
  * Created by thatnight on 2017.11.17.
  */
 
-public class PopViewAdapter extends BaseAdapter {
+public class  PopViewAdapter extends BaseAdapter {
 
-    private List<String> mDataList;
+    private List<KeyValue> mKeyValueList;
     private Context mContext;
     private OnPopItemClickListener mListener;
 
@@ -32,29 +32,29 @@ public class PopViewAdapter extends BaseAdapter {
     private int mTextColorSelected;
     private int mSelectPosition = 0;
 
-    public PopViewAdapter(List<String> dataList, Context context) {
-        mDataList = dataList;
+    public PopViewAdapter(List<KeyValue> keyValueList, Context context) {
+        mKeyValueList = keyValueList;
         mContext = context;
     }
 
-    public void setDataList(List<String> dataList) {
-        mDataList = dataList;
+    public void setKeyValueList(List<KeyValue> keyValueList) {
+        mKeyValueList = keyValueList;
         notifyDataSetChanged();
     }
 
     public PopViewAdapter(Context context) {
         mContext = context;
-        mDataList = new ArrayList<>();
+        mKeyValueList = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return mDataList.size();
+        return mKeyValueList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mDataList.get(position);
+        return mKeyValueList.get(position);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class PopViewAdapter extends BaseAdapter {
 
 
         viewHolder.mTvValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
-        viewHolder.mTvValue.setText(mDataList.get(position));
+        viewHolder.mTvValue.setText(mKeyValueList.get(position).getKey());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

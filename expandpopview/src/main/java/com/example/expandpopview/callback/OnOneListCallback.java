@@ -1,10 +1,12 @@
 package com.example.expandpopview.callback;
 
+import com.example.expandpopview.listview.KeyValue;
+
 /**
  * Created by thatnight on 2017.11.27.
  */
 
 public interface OnOneListCallback {
 
-    void returnKey(int pos, String value);
+    void returnKeyValue(int pos, KeyValue keyValue);
 }

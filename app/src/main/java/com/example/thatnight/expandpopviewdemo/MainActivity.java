@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.expandpopview.callback.OnOneListCallback;
 import com.example.expandpopview.callback.OnTwoListCallback;
+import com.example.expandpopview.listview.KeyValue;
 import com.example.expandpopview.view.ExpandPopView;
 
 import java.util.ArrayList;
@@ -16,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
     private ExpandPopView mExpandPopView;
 
 
-    private List<String> mParentList;
-    private List<String> mChildList;
-    private List<List<String>> mParentChild;
-    private List<String> mOneList;
+    private List<KeyValue> mParentList;
+    private List<KeyValue> mChildList;
+    private List<List<KeyValue>> mParentChild;
+    private List<KeyValue> mOneList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,37 +32,39 @@ public class MainActivity extends AppCompatActivity {
         mOneList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            mOneList.add("一级列表" + i);
+            mOneList.add(new KeyValue("一级列表" + i, i + ""));
         }
         mExpandPopView.addItemToExpandTab("一级", mOneList, new OnOneListCallback() {
             @Override
-            public void returnKey(int pos, String value) {
-                Toast.makeText(MainActivity.this, value, Toast.LENGTH_SHORT).show();
+            public void returnKeyValue(int pos, KeyValue keyValue) {
+                Toast.makeText(MainActivity.this, keyValue.getKey() + " " + keyValue.getValue(), Toast.LENGTH_SHORT).show();
 
             }
+
         });
 
         for (int i = 0; i < 10; i++) {
-            mParentList.add("安卓分类" + i);
+            mParentList.add(new KeyValue("安卓分类" + i, i + ""));
             mChildList = new ArrayList<>();
             for (int j = 0; j < 10; j++) {
-                mChildList.add( i+ " " + j);
+                mChildList.add(new KeyValue(i + " " + j, j + ""));
             }
             mParentChild.add(mChildList);
         }
 
         mExpandPopView.addItemToExpandTab("二级", mParentList, mParentChild, new OnTwoListCallback() {
             @Override
-            public void returnParentKey(int pos, String value) {
-                Toast.makeText(MainActivity.this, pos + "  " + value, Toast.LENGTH_SHORT).show();
+            public void returnParentKeyValue(int pos, KeyValue keyValue) {
+                Toast.makeText(MainActivity.this, pos + "  " + keyValue.getKey() + " " + keyValue.getValue(), Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
-            public void returnChildKey(int pos, String value) {
-                Toast.makeText(MainActivity.this, pos + "  " + value, Toast.LENGTH_SHORT).show();
+            public void returnChildKeyValue(int pos, KeyValue keyValue) {
+                Toast.makeText(MainActivity.this, pos + "  " + keyValue.getKey() + " " + keyValue.getValue(), Toast.LENGTH_SHORT).show();
 
             }
+
         });
     }
 }

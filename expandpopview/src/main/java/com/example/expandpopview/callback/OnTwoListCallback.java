@@ -1,11 +1,13 @@
 package com.example.expandpopview.callback;
 
+import com.example.expandpopview.listview.KeyValue;
+
 /**
  * Created by thatnight on 2017.11.27.
  */
 
 public interface OnTwoListCallback {
-    void returnParentKey(int pos, String value);
+    void returnParentKeyValue(int pos, KeyValue keyValue);
 
-    void returnChildKey(int pos, String value);
+    void returnChildKeyValue(int pos, KeyValue keyValue);
 }

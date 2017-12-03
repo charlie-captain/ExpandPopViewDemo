@@ -20,10 +20,10 @@ import com.example.expandpopview.R;
 import com.example.expandpopview.callback.OnOneListCallback;
 import com.example.expandpopview.callback.OnPopViewListener;
 import com.example.expandpopview.callback.OnTwoListCallback;
+import com.example.expandpopview.listview.KeyValue;
 import com.example.expandpopview.listview.PopLinearLayout;
 import com.example.expandpopview.listview.PopOneListView;
 import com.example.expandpopview.listview.PopTwoListView;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +109,7 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
      * @param title
      * @param oneList
      */
-    public void addItemToExpandTab(String title, List<String> oneList, OnOneListCallback callback) {
+    public void addItemToExpandTab(String title, List<KeyValue> oneList, OnOneListCallback callback) {
         PopOneListView oneListView = new PopOneListView(mContext);
         oneListView.setData(oneList);
         oneListView.setCallback(callback);
@@ -126,8 +126,8 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
      * @param parentList
      * @param parentChild
      */
-    public void addItemToExpandTab(String title, List<String> parentList,
-                                   List<List<String>> parentChild,
+    public void addItemToExpandTab(String title, List<KeyValue> parentList,
+                                   List<List<KeyValue>> parentChild,
                                    OnTwoListCallback callback) {
         PopTwoListView twoListView = new PopTwoListView(mContext);
         twoListView.setData(parentList, parentChild);
