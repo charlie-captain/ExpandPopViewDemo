@@ -59,6 +59,7 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
     public static final int TYPE_ONE = 1;
     public static final int TYPE_TWO = 2;
     private Map<Integer, PopTwoListView> mTwoListMap;
+    private Map<Integer, PopOneListView> mOneListMap;
 
     public ExpandPopView(Context context) {
         this(context, null);
@@ -74,6 +75,7 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
         mViews = new ArrayList<>();
         mTypeList = new ArrayList<>();
         mTwoListMap = new HashMap<>();
+        mOneListMap = new HashMap<>();
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ExpandPopView);
         mTbtnBackground = a.getResourceId(R.styleable.ExpandPopView_tab_togglebtn_bg, -1);
         mTbtnBackgroundColor = a.getColor(R.styleable.ExpandPopView_tab_togglebtn_bg_color, Color.WHITE);
@@ -116,6 +118,7 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
         oneListView.setPopViewListener(this);
         oneListView.setDrawable(mPopViewTextSize, mPopViewTextColor, mPopViewTextColorSelected);
         mTypeList.add(TYPE_ONE);
+        mOneListMap.put(mTabPosition + 1, oneListView);
         addItemToExpandTab(title, oneListView);
     }
 
@@ -137,9 +140,7 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
         mTypeList.add(TYPE_TWO);
         mTwoListMap.put(mTabPosition + 1, twoListView);
         addItemToExpandTab(title, twoListView);
-
     }
-
 
     public void addItemToExpandTab(String title, PopLinearLayout tabItemView) {
         ToggleButton tBtn = (ToggleButton) LayoutInflater.from(mContext).
@@ -176,6 +177,27 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
         popContainerView.getChildAt(0);
         popContainerView.setBackgroundColor(mPopViewBackgroundColor);
         mViews.add(popContainerView);
+    }
+
+    public void setItemData(int tabPosition, List<KeyValue> oneList) {
+        if (TYPE_ONE == mTypeList.get(tabPosition)) {
+            mOneListMap.get(tabPosition).setData(oneList);
+        }
+    }
+
+    public void setItemData(int tabPosition, List<KeyValue> parentList,
+                            List<KeyValue> childList,
+                            List<List<KeyValue>> parentChildren) {
+        if (TYPE_TWO == mTypeList.get(tabPosition)) {
+            mTwoListMap.get(tabPosition).setData(parentList, childList, parentChildren);
+        }
+    }
+
+    public void refreshItemChildrenData(int tabPosition,
+                            List<KeyValue> childList) {
+        if (TYPE_TWO == mTypeList.get(tabPosition)) {
+            mTwoListMap.get(tabPosition).setData(null, childList, null);
+        }
     }
 
     private void expandPopView() {

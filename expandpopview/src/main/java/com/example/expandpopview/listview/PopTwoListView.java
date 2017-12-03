@@ -133,11 +133,25 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
 
     }
 
-
     public void setData(List<KeyValue> parentList, List<List<KeyValue>> parentChild) {
-        mParentList = parentList;
-        mChildList.addAll(parentChild.get(0));
-        mParentChildren = parentChild;
+        setData(parentList, null, parentChild);
+    }
+
+    public void setData(List<KeyValue> parentList, List<KeyValue> childList, List<List<KeyValue>> parentChild) {
+        if (parentChild != null) {
+            mParentList.clear();
+            mParentList.addAll(parentList);
+        }
+        if (parentChild != null) {
+            mParentChildren.clear();
+            mParentChildren.addAll(parentChild);
+        }
+        mChildList.clear();
+        if (childList == null) {
+            mChildList.addAll(parentChild.get(0));
+        } else {
+            mChildList.addAll(childList);
+        }
         mParentAdapter.setKeyValueList(mParentList);
         mChildAdapter.setKeyValueList(mChildList);
     }

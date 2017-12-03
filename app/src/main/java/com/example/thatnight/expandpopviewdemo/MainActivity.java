@@ -52,11 +52,16 @@ public class MainActivity extends AppCompatActivity {
             mParentChild.add(mChildList);
         }
 
+
         mExpandPopView.addItemToExpandTab("二级", mParentList, mParentChild, new OnTwoListCallback() {
             @Override
             public void returnParentKeyValue(int pos, KeyValue keyValue) {
                 Toast.makeText(MainActivity.this, pos + "  " + keyValue.getKey() + " " + keyValue.getValue(), Toast.LENGTH_SHORT).show();
-
+                mChildList = new ArrayList<>();
+                for (int j = 0; j < 10; j++) {
+                    mChildList.add(new KeyValue(j + "asd" + j, j + ""));
+                }
+                mExpandPopView.refreshItemChildrenData(1, mChildList);
             }
 
             @Override

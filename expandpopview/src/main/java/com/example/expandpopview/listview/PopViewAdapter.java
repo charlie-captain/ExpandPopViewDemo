@@ -19,7 +19,7 @@ import java.util.List;
  * Created by thatnight on 2017.11.17.
  */
 
-public class  PopViewAdapter extends BaseAdapter {
+public class PopViewAdapter extends BaseAdapter {
 
     private List<KeyValue> mKeyValueList;
     private Context mContext;
@@ -39,7 +39,8 @@ public class  PopViewAdapter extends BaseAdapter {
     }
 
     public void setKeyValueList(List<KeyValue> keyValueList) {
-        mKeyValueList = keyValueList;
+        mKeyValueList.clear();
+        mKeyValueList.addAll(keyValueList);
         notifyDataSetChanged();
     }
 
