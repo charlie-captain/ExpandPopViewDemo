@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 10; i++) {
             mParentList.add(new KeyValue("安卓分类" + i, i + ""));
             mChildList = new ArrayList<>();
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 2; j++) {
                 mChildList.add(new KeyValue(i + " " + j, j + ""));
             }
             mParentChild.add(mChildList);
@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void returnParentKeyValue(int pos, KeyValue keyValue) {
                 Toast.makeText(MainActivity.this, pos + "  " + keyValue.getKey() + " " + keyValue.getValue(), Toast.LENGTH_SHORT).show();
-                mChildList = new ArrayList<>();
-                for (int j = 0; j < 10; j++) {
-                    mChildList.add(new KeyValue(j + "asd" + j, j + ""));
-                }
-                mExpandPopView.refreshItemChildrenData(1, mChildList);
+//                mChildList = new ArrayList<>();
+//                for (int j = 0; j < 2; j++) {
+//                    mChildList.add(new KeyValue(j + "asd" + j, j + ""));
+//                }
+//                mExpandPopView.refreshItemChildrenData(1, mChildList);
             }
 
             @Override

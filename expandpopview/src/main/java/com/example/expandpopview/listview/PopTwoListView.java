@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ListView;
 
@@ -14,7 +13,6 @@ import com.example.expandpopview.callback.OnPopItemClickListener;
 import com.example.expandpopview.callback.OnPopViewListener;
 import com.example.expandpopview.callback.OnTwoListCallback;
 import com.example.expandpopview.entity.KeyValue;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +59,7 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
         mChildList = new ArrayList<>();
         mParentList = new ArrayList<>();
         mParentAdapter = new PopViewAdapter(context);
-
+        mParentListView.setBackgroundColor(Color.WHITE);
         mParentAdapter.setSelectorBackground(Color.WHITE,
                 getResources().getColor(R.color.color_selected_parent));
 
@@ -76,9 +74,9 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
 
         mChildListView = findViewById(R.id.expand_lv_two_children);
         mChildAdapter = new PopViewAdapter(context);
-
         mChildAdapter.setSelectorBackground(getResources().getColor(R.color.color_selected_parent),
                 getResources().getColor(R.color.color_selected_child));
+        mChildListView.setBackgroundColor(getResources().getColor(R.color.color_selected_parent));
 
         mChildListView.setAdapter(mChildAdapter);
         mChildAdapter.setListener(new OnPopItemClickListener() {
@@ -92,25 +90,27 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
     private void clickParent(PopViewAdapter adapter, int pos) {
         mParentPositionSelected = pos;
         adapter.setSelectPosition(pos);
-        mChildAdapter.setSelectPosition(-1);
-        mChildList.clear();
-        mChildList.addAll(mParentChildren.get(pos));
-        mChildAdapter.setKeyValueList(mChildList);
         if (mCallBack != null) {
             mCallBack.returnParentKeyValue(pos, mParentList.get(pos));
         }
+        mChildAdapter.setSelectPosition(-1);
+        if (pos < mParentChildren.size()) {
+            mChildList.clear();
+            mChildList.addAll(mParentChildren.get(pos));
+        }
+        mChildAdapter.setKeyValueList(mChildList);
     }
 
     private void clickChild(PopViewAdapter adapter, int pos) {
         mChildPosition = pos;
         adapter.setSelectPosition(pos);
         mChildListView.setSelection(pos);
-        mParentListView.setSelection(mParentPositionSelected);
-        mParentAdapter.setSelectPosition(mParentPositionSelected);
-        mParentPosition = mParentPositionSelected;
         if (mCallBack != null) {
             mCallBack.returnChildKeyValue(pos, mChildList.get(pos));
         }
+        mParentListView.setSelection(mParentPositionSelected);
+        mParentAdapter.setSelectPosition(mParentPositionSelected);
+        mParentPosition = mParentPositionSelected;
         if (mOnPopViewListener != null) {
             mOnPopViewListener.unexpandPopView(mChildList.get(pos).getKey());
         }
@@ -118,17 +118,17 @@ public class PopTwoListView extends PopLinearLayout implements IPopListView {
 
     public void refreshSelected() {
         if (mParentPosition != mParentPositionSelected) {
-            Log.d("sss", "refreshSelected: ");
             mParentPositionSelected = mParentPosition;
             mParentAdapter.setSelectPosition(mParentPosition);
             mParentListView.setSelection(mParentPosition);
             //set child list
-            mChildList.clear();
-            mChildList.addAll(mParentChildren.get(mParentPosition));
-            mChildAdapter.setKeyValueList(mChildList);
-            mChildAdapter.setSelectPosition(mChildPosition);
-            mChildListView.setSelection(mChildPosition);
-
+            if (mParentPosition < mParentChildren.size()) {
+                mChildList.clear();
+                mChildList.addAll(mParentChildren.get(mParentPosition));
+                mChildAdapter.setKeyValueList(mChildList);
+                mChildAdapter.setSelectPosition(mChildPosition);
+                mChildListView.setSelection(mChildPosition);
+            }
         }
 
     }

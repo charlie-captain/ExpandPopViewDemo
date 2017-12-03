@@ -37,7 +37,7 @@ import java.util.Map;
 public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismissListener, OnPopViewListener {
     private List<RelativeLayout> mViews;
     private ToggleButton mTbSelected;
-    private PopupWindow mPopupWindow;
+    private FixedPopupWindow mPopupWindow;
     private Context mContext;
     private int mDisplayWidth;
     private int mDisplayHeight;
@@ -202,7 +202,7 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
 
     private void expandPopView() {
         if (mPopupWindow == null) {
-            mPopupWindow = new PopupWindow(mViews.get(mSelectPosition), WindowManager.LayoutParams.MATCH_PARENT,
+            mPopupWindow = new FixedPopupWindow(mViews.get(mSelectPosition), WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.MATCH_PARENT);
             mPopupWindow.setFocusable(false);
             mPopupWindow.setOutsideTouchable(true);
@@ -225,7 +225,7 @@ public class ExpandPopView extends LinearLayout implements PopupWindow.OnDismiss
         if (mPopupWindow.getContentView() != mViews.get(mSelectPosition)) {
             mPopupWindow.setContentView(mViews.get(mSelectPosition));
         }
-        mPopupWindow.showAsDropDown(this, 0, 0);
+        mPopupWindow.showAsDropDown(this);
     }
 
     private boolean hidePopView() {
